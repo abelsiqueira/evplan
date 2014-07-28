@@ -42,8 +42,8 @@ Inside the folder will be a tree, like
   - rooms
 
 along with some hidden files.
-The file `plan.ev` includes important details of the event, such as location
-and duration.
+The file `plan.ev` includes important details of the event, such as the name,
+location and duration.
 Inside `talks`, there will be an example file of a plenary talk.
 Inside `rooms`, there will be an example of a room.
 
