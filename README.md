@@ -5,7 +5,7 @@ This is a tool to help prepare an event in the line of conferences.
 What I want from this tool is:
 
   - Generation of a schedule for all talks;
-  - Use list of participants per talk to prevent talk collision;
+  - Use list of people per talk to prevent talk collision;
   - Use of tags to discourage same type of presentation in the same time;
   - Use of tags and room groups to put similar presentations together;
   - Creation of a site with all information;
@@ -47,7 +47,7 @@ Inside the folder will be a tree, like
 along with some hidden files.
 The file `plan.ev` includes important details of the event, such as the name,
 location and duration.
-Inside `participants`, there will be an example of a participant.
+Inside `people`, there will be an example of a person.
 Inside `rooms`, there will be an example of a room.
 Inside `talks`, there will be an example file of a plenary talk.
 
