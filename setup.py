@@ -7,7 +7,7 @@ setup(
     author='Abel Soares Siqueira',
     author_email='abel.s.siqueira@gmail.com',
     packages=['evplan'],
-    package_data={'evplan': ['*.tmpl']},
+    package_data={'evplan': ['*/*.tmpl','*/*/*.tmpl']},
     url='https://github.com/abelsiqueira/evplan',
     license='LICENSE',
     description='A package and tool for creating conferences',

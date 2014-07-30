@@ -15,6 +15,10 @@ def main():
 
     cmd = sys.argv[1]
     if cmd == "generate":
+        if len(sys.argv) < 3:
+            print(("ERROR: '{}' needs argument").format(cmd))
+            usage()
+            exit(1)
         from evplan import generate
         generate.generate(sys.argv[2])
     else:
