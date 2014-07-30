@@ -5,12 +5,14 @@ This is a tool to help prepare an event in the line of conferences.
 What I want from this tool is:
 
   - Generation of a schedule for all talks;
-  - Use of tags to prevent same type of presentation in the same time;
+  - Use list of participants per talk to prevent talk collision;
+  - Use of tags to discourage same type of presentation in the same time;
   - Use of tags and room groups to put similar presentations together;
   - Creation of a site with all information;
   - Ability to work from windows and linux;
   - Possibility of integration with a GUI;
-  - Creation of printed guides (manual?, how's this called?).
+  - Creation of printed guides with schedule and additional information(manual?,
+    how's this called?).
 
 I think the easiest way to have this happen is using Python.
 
@@ -38,14 +40,16 @@ First, create your project using
 Inside the folder will be a tree, like
 
   - plan.ev
-  - talks
+  - speaker
   - rooms
+  - talks
 
 along with some hidden files.
 The file `plan.ev` includes important details of the event, such as the name,
 location and duration.
-Inside `talks`, there will be an example file of a plenary talk.
+Inside `participants`, there will be an example of a participant.
 Inside `rooms`, there will be an example of a room.
+Inside `talks`, there will be an example file of a plenary talk.
 
 Run
 

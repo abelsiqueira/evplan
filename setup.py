@@ -12,6 +12,6 @@ setup(
     license='LICENSE',
     description='A package and tool for creating conferences',
     long_description=open('README.md').read(),
-    entry_points={'console_script': ['evplan = evplan.main:main']},
+    entry_points={'console_scripts': ['evplan = evplan.main:main']},
     data_files=[]
 )
