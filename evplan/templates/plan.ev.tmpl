@@ -1,5 +1,5 @@
-- name: EXAMPLE
-- location: WHERE
+name: EXAMPLE
+location: WHERE
 #duration: a collection of dates. You can use range and singular days, such as
 #date1 - for a singular date
 #date1-date2 - for every date between the two (inclusive)
@@ -7,6 +7,26 @@
 #date1,date2-date3,date4 - For days date1, date4 and all days in the range date2
 #to date3
 # The format of each date is yyyy/mm/dd
-- duration: 2015/12/31
-- times: 9-12,14-18
-- interval: 30
+duration: 2015/12/31-2016/1/2,2016/1/4
+# Follow the example. 21 is ok. 21h00 is ok. 21h is ok. 21:00 is ok. 9pm is not
+times: 9-12h,14:00-18h00
+# In minutes
+interval: 30
+# Date format is how you want it to appear in the finished material
+# ENCLOSE USING "
+# %d is day of month (e.g., 01)
+# %m is month of year (01..12)
+# %b is abbreviated month name
+# %B is full month name
+# %y is last two digits of year
+# %Y is year
+# See the manual of the command date for complete list
+date_format: "%B, %d of %Y"
+# Time format is how you want it to appear in the finished material
+# ENCLOSE USING "
+# %H is hour (00..23)
+# %I is hour (01..12)
+# %M is minute (00..59)
+# %p is AM or PM
+# %P is am or pm
+time_format: "%Hh%M"

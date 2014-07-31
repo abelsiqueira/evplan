@@ -20,6 +20,9 @@ class Event(object):
             exit(1)
 
         self.read_plan()
+        self.read_people()
+        self.read_rooms()
+        self.read_talks()
 
     def read_plan(self):
         data = yaml.load(open('plan.ev'))
@@ -60,15 +63,40 @@ class Event(object):
         self.times = times
         self.schedule = dict([(day, dict([(time,'') for time in times]))\
                 for day in days])
-        print(days)
-        print(times)
-        print(self.schedule)
 
     def format_date(self, s):
         return s.strftime(self.date_format)
 
     def format_time(self, s):
         return s.strftime(self.time_format)
+
+    def read_people(self):
+        self.people = {}
+        for dirname, dirnames, filenames in os.walk('people'):
+            for person in filenames:
+                p = yaml.load(open('people/'+person))
+                id = os.path.splitext(person)[0]
+                self.people[id] = p
+        print(self.people)
+
+    def read_rooms(self):
+        self.rooms = {}
+        for dirname, dirnames, filenames in os.walk('rooms'):
+            for room in filenames:
+                p = yaml.load(open('rooms/'+room))
+                id = os.path.splitext(room)[0]
+                self.rooms[id] = p
+        print(self.rooms)
+
+    def read_talks(self):
+        self.talks = {}
+        for dirname, dirnames, filenames in os.walk('talks'):
+            for talk in filenames:
+                p = yaml.load(open('talks/'+talk))
+                p['tags'] = re.split('[,; ]', p['tags'])
+                id = os.path.splitext(talk)[0]
+                self.talks[id] = p
+        print(self.talks)
 
 def to_time(s):
     v = re.split('[h:]', s)
