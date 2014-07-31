@@ -21,5 +21,8 @@ def main():
             exit(1)
         from evplan import generate
         generate.generate(sys.argv[2])
+    elif cmd == "run":
+        from evplan import run
+        run.run()
     else:
         print("ERROR: Command '{}' not found".format(cmd))
