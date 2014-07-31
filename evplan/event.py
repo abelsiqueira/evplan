@@ -4,6 +4,7 @@ These are related to the event
 
 import datetime
 import os
+import re
 import yaml
 
 PLAN_EV_FIELDS = ['name','location','duration','times','interval']
@@ -26,57 +27,63 @@ class Event(object):
         self.location = data['location']
         self.duration = data['duration']
         self.times = data['times']
-        self.interval = int(data['interval'])
+        self.interval = datetime.timedelta(minutes=int(data['interval']))
         self.date_format = data['date_format']
+        self.time_format = data['time_format']
         days = []
         p1day = datetime.timedelta(days=1)
         for date in self.duration.split(','):
             date = date.split('-')
             if len(date) == 1:
                 date = to_date(date[0])
-                days.append(date)
+                days.append(self.format_date(date))
             elif len(date) == 2:
                 date[0] = to_date(date[0])
                 date[1] = to_date(date[1])
                 if date[0] >= date[1]:
                     print("ERROR: Badly formated date")
-                while (date[0] < date[1]):
-                    days.append(date[0])
+                while (date[0] <= date[1]):
+                    days.append(self.format_date(date[0]))
                     date[0] += p1day
-        days = [self.format_date(day) for day in days]
         times = []
         for pair in self.times.split(','):
-            a = time_str_to_int(pair.split('-')[0])
-            b = time_str_to_int(pair.split('-')[1])
-            while a < b:
-                times.append(time_int_to_str(a))
-                a += self.interval
-            if a > b:
+            pair = pair.split('-')
+            pair[0] = to_time(pair[0])
+            pair[1] = to_time(pair[1])
+            while pair[0] < pair[1]:
+                times.append(self.format_time(pair[0]))
+                pair[0] = pair[0] + self.interval
+            if pair[0] > pair[1]:
                 print("ERROR: Time interval not consistent with schedule")
                 exit(1)
-        self.days = days;
-        self.times = times;
+        self.days = days
+        self.times = times
         self.schedule = dict([(day, dict([(time,'') for time in times]))\
                 for day in days])
+        print(days)
+        print(times)
         print(self.schedule)
 
     def format_date(self, s):
         return s.strftime(self.date_format)
 
-def time_str_to_int(s):
-    v = s.split('h')
-    if len(v) == 1:
-        return int(v[0])*60
-    elif len(v) == 2:
-        return int(v[0])*60 + int(v[1])
-    else:
-        print("ERROR: Wrong format for time: {}".format(s))
-        exit(1)
+    def format_time(self, s):
+        return s.strftime(self.time_format)
 
-def time_int_to_str(v):
-    return '{}h{:0>2}'.format(int(v/60),v%60)
+def to_time(s):
+    v = re.split('[h:]', s)
+    if len(v) == 1:
+        return datetime.datetime(2000,1,1,int(v[0]))
+    elif len(v) == 2:
+        return datetime.datetime(2000,1,1,int(v[0]), int(v[1]))
+    else:
+        print("ERROR: Badly formatted time '{}'".format(s))
+        exit(1)
 
 def to_date(s):
     v = s.split('/')
+    if len(v) != 3:
+        print("ERROR: Badly formatted date '{}'".format(s))
+        exit(1)
     return datetime.date(int(v[0]),int(v[1]),int(v[2]))
 
