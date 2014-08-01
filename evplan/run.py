@@ -4,6 +4,7 @@ of the event.
 """
 
 from . import event
+from . import scheduler
 import os
 
 def run():
@@ -12,3 +13,5 @@ def run():
         print("ERROR: run 'evplan generate' first")
         exit(1)
     ev = event.Event()
+    scheduler.scheduler(ev)
+    scheduler.raw_print(ev)

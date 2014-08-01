@@ -23,6 +23,7 @@ class Event(object):
         self.read_people()
         self.read_rooms()
         self.read_talks()
+        self.create_schedule()
 
     def read_plan(self):
         data = yaml.load(open('plan.ev'))
@@ -61,8 +62,11 @@ class Event(object):
                 exit(1)
         self.days = days
         self.times = times
-        self.schedule = dict([(day, dict([(time,'') for time in times]))\
-                for day in days])
+
+    def create_schedule(self):
+        self.schedule = dict([(day, dict([(room, dict([(time,'') \
+                for time in self.times])) for room in self.rooms])) \
+                for day in self.days])
 
     def format_date(self, s):
         return s.strftime(self.date_format)
@@ -77,7 +81,6 @@ class Event(object):
                 p = yaml.load(open('people/'+person))
                 id = os.path.splitext(person)[0]
                 self.people[id] = p
-        print(self.people)
 
     def read_rooms(self):
         self.rooms = {}
@@ -86,7 +89,6 @@ class Event(object):
                 p = yaml.load(open('rooms/'+room))
                 id = os.path.splitext(room)[0]
                 self.rooms[id] = p
-        print(self.rooms)
 
     def read_talks(self):
         self.talks = {}
@@ -96,7 +98,6 @@ class Event(object):
                 p['tags'] = re.split('[,; ]', p['tags'])
                 id = os.path.splitext(talk)[0]
                 self.talks[id] = p
-        print(self.talks)
 
 def to_time(s):
     v = re.split('[h:]', s)
