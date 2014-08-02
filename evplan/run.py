@@ -5,6 +5,7 @@ of the event.
 
 from . import event
 from . import scheduler
+from . import manual
 import os
 
 def run():
@@ -14,4 +15,5 @@ def run():
         exit(1)
     ev = event.Event()
     scheduler.scheduler(ev)
-    scheduler.raw_print(ev)
+    manual.create_manual(ev)
+#    scheduler.raw_print(ev)
