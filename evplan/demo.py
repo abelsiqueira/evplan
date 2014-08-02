@@ -2,6 +2,7 @@
 This contains the demo for evplan
 """
 
+from . import generate
 import os
 import random
 
@@ -14,19 +15,19 @@ def create_demo():
         print("ERROR: '{}' exists".format(dir))
         exit(1)
     os.makedirs(dir)
-    os.makedirs(dir+'/people')
-    os.makedirs(dir+'/rooms')
-    os.makedirs(dir+'/talks')
+    for d in ['people','rooms','talks','templates']:
+        os.makedirs(dir+'/'+d)
 
     create_demo_evplan(dir)
     people = create_demo_people(dir)
     create_demo_rooms(dir)
     create_demo_talks(dir,people)
+    generate.copy_manual_templates(dir)
 
 def create_demo_evplan(dir):
     strout = "name: Demo Conference for evplan\n"
     strout += "location: Demoland\n"
-    strout += "duration: 1900/12/13-1901/01/01,1901/01/04\n"
+    strout += "duration: 1900/12/31-1901/01/01,1901/01/04\n"
     strout += "times: 9h-12h,14h-17h\n"
     strout += "interval: 30\n"
     strout += "date_format: \"%B, %d of %Y\"\n"
