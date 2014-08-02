@@ -1,6 +1,8 @@
 evplan - Event Planner
 ======================
 
+WARNING: This does not work yet
+
 This is a tool to help prepare an event in the line of conferences.
 What I want from this tool is:
 
@@ -11,10 +13,8 @@ What I want from this tool is:
   - Creation of a site with all information;
   - Ability to work from windows and linux;
   - Possibility of integration with a GUI;
-  - Creation of printed guides with schedule and additional information(manual?,
-    how's this called?).
-
-I think the easiest way to have this happen is using Python.
+  - Creation of printed guides with schedule and additional information (I'm
+    calling this manual).
 
 License
 =======
@@ -26,16 +26,14 @@ github repository.
 Install
 =======
 
-You will need Python 3, git and pdflatex.
+You will need Python 3. See the list of required packages in REQUIREMENTS.
 
 How to use
 ==========
 
-WARNING: It will work like this, currently doesn't.
-
 First, create your project using
 
-    $ evclan create NAME
+    $ evplan generate NAME
 
 Inside the folder will be a tree, like
 
@@ -43,17 +41,24 @@ Inside the folder will be a tree, like
   - speaker
   - rooms
   - talks
+  - templates
 
-along with some hidden files.
 The file `plan.ev` includes important details of the event, such as the name,
 location and duration.
 Inside `people`, there will be an example of a person.
 Inside `rooms`, there will be an example of a room.
 Inside `talks`, there will be an example file of a plenary talk.
+Inside `templates`, there will templates for the manual tex files, and possibly
+other templates.
 
 Run
 
-    $ evclan run
+    $ evplan run
 
-inside this folder to generate a `_site` folder with the site of the event, and
-a `_manual` folder with the pdfs of the event.
+inside this folder to generate a `_site` folder with the site of the event (not
+implemented yet), and a `_manual` folder with the pdfs of the event (only the
+tex for now. Compile manual.tex).
+
+For an example of event, run
+
+    $ evplan demo
