@@ -24,5 +24,8 @@ def main():
     elif cmd == "run":
         from evplan import run
         run.run()
+    elif cmd == "demo":
+        from evplan import demo
+        demo.create_demo()
     else:
         print("ERROR: Command '{}' not found".format(cmd))

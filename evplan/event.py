@@ -100,7 +100,7 @@ class Event(object):
                 self.talks[id] = p
 
 def to_time(s):
-    v = re.split('[h:]', s)
+    v = [x for x in re.split('[h:]', s) if x != '']
     if len(v) == 1:
         return datetime.datetime(2000,1,1,int(v[0]))
     elif len(v) == 2:
